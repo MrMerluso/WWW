@@ -21,6 +21,7 @@ const typeDefs = gql`
     type Stockmeds{
         id: ID!
         Codigo: Int!
+        Nombre: String!
         Descripcion: String!    
         Fabricante: String!
         Tipo: String!
@@ -29,13 +30,14 @@ const typeDefs = gql`
         Cantidad: Int!
         Gramaje: Int!
     }
-
+    
     type Alert{
         message: String
     }
 
     input MedicamentoInput {
         Codigo: Int!
+        Nombre: String!
         Descripcion: String!
         Fabricante: String!
         Tipo: String!
@@ -47,7 +49,8 @@ const typeDefs = gql`
     
     type Query {
         getMedicamentos: [Stockmeds]
-        getMedicamento(id : ID!) : Stockmeds
+        getMedicamento(id: ID!) : Stockmeds
+        getMedicamentoByName(name: String!) : Stockmeds
 
         getEntradas: [Entrada]
         getEntrada(id: ID!) : Entrada
@@ -56,9 +59,9 @@ const typeDefs = gql`
     type Mutation{
         addMedicamento(input: MedicamentoInput): Stockmeds
         updateMedicamento(Codigo:ID!, input:MedicamentoInput) : Stockmeds
-        deleteMedicamento(Codigo:ID!) : Alert
+        deleteMedicamento(id:ID!) : Alert
     
-        addEntrada(input: EntradaInput): Entrada
+        addEntrada(name: String!, cantidad: Int!): Entrada
         updateEntrada(Codigo: ID!, input: EntradaInput): Entrada
     }
 
@@ -69,10 +72,9 @@ const typeDefs = gql`
     }
 
     input EntradaInput {
-    Medicamento: MedicamentoInput!
-    Cantidad: Int!
+        Medicamento: MedicamentoInput!
+        Cantidad: Int!
     }
-
 `;
 
 const resolvers= {
@@ -83,7 +85,11 @@ const resolvers= {
             return medicamentos;
         },
         async getMedicamento(obj, {id}){ // Get ONE
-            const medicamento= await Stockmeds.findById(id);
+            const medicamento= await Stockmeds.findById({_id: id});
+            return medicamento;
+        },
+        async getMedicamentoByName(obj, {name}){
+            const medicamento = await Stockmeds.findOne({Nombre: name});
             return medicamento;
         }
         /* // RECETA
@@ -116,15 +122,29 @@ const resolvers= {
         },
         async deleteMedicamento(obj, {id}){
             await Stockmeds.deleteOne({_id : id});
+        
             return {
                 message: 'Medicamento Eliminado'
             }
         },
-        async addEntrada(obj, {input}){
-            const entrada = new Entrada(input);
-            await entrada.save();
-            return entrada;
+        async addEntrada(obj, {name,cantidad}){
+            //const medicamento = await getMedicamentoByName(name)
+           
+                const medicamento = await Stockmeds.findOne({Nombre: name});
+                
+            
+            try{
+
+                const entrada = new Entrada({Medicamento: medicamento._id, Cantidad: cantidad});
+                console.log(entrada)
+                await entrada.save();
+                return entrada;
+
+            }catch{
+                console.log("no pesca")
+            }
         }
+
 
        /*  updateEntrada(Codigo: ID!, input: EntradaInput): Entrada */
         // RECETA
