@@ -1,14 +1,12 @@
-const mongoose = require ('mongoose')
+const mongoose = require ('mongoose');
+const stockmeds = require('./stockmeds');
 
 
 const salidaSchema = new mongoose.Schema( {
+    Medicamento: {type: mongoose.Schema.Types.ObjectId, ref: 'stockmeds'},
     Cantidad: Number,
     Nombre: String,
-    Rut: String,
-    Meds : {
-        type: [mongoose.Schema.Types.ObjectID],
-        ref: 'stockmeds'
-    }
+    Rut: String
 });
 
 module.exports = mongoose.model('salida', salidaSchema);

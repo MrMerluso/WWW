@@ -1,13 +1,11 @@
-const mongoose = require ('mongoose')
+const mongoose = require ('mongoose');
+const stockmeds = require('./stockmeds');
 
 const recetaSchema = new mongoose.Schema( {
     Nombre: String,
     Edad: Number,
-    Rut: Number,
-    Medicamento: {
-        type: [mongoose.Schema.Types.ObjectID],
-        ref: 'stockmeds'
-    },
+    Rut: String,
+    Medicamento: {type: mongoose.Schema.Types.ObjectId, ref: 'stockmeds'},
     Cantidad: Number,
     Observaciones: String
 

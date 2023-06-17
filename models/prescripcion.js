@@ -1,4 +1,5 @@
 const mongoose = require ('mongoose');
+const stockmeds = require('./stockmeds');
 
 
 const prescripcionSchema = new mongoose.Schema( {
