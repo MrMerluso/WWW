@@ -29,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "^3.7.16",
     "@fortawesome/fontawesome-svg-core": "6.4.0",
     "@fortawesome/free-brands-svg-icons": "6.4.0",
     "@fortawesome/free-regular-svg-icons": "6.4.0",
@@ -39,8 +40,11 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
+    "@types/react-modal": "^3.16.0",
     "@vitejs/plugin-react": "^4.0.0",
+    "axios": "^1.4.0",
     "formik": "2.2.9",
+    "graphql": "^16.7.1",
     "i18next": "22.4.15",
     "i18next-browser-languagedetector": "7.0.1",
     "luxon": "3.3.0",
@@ -50,6 +54,7 @@
     "react-bootstrap": "1.6.1",
     "react-dom": "0.0.0-experimental-c8369527e-20230420",
     "react-i18next": "12.2.0",
+    "react-modal": "^3.16.1",
     "react-redux": "8.0.5",
     "react-router-dom": "6.10.0",
     "react-scripts": "5.0.1",

@@ -6,44 +6,79 @@ import {PfImage} from '@profabric/react-components';
 import styled from 'styled-components';
 import {SidebarSearch} from '@app/components/sidebar-search/SidebarSearch';
 import i18n from '@app/utils/i18n';
+import {email_login} from '@app/utils/oidc-providers';
 
+//console.log("pico: "+email_login);
 export interface IMenuItem {
   name: string;
   icon?: string;
   path?: string;
+  visible?: boolean;
   children?: Array<IMenuItem>;
 }
 
+console.log("pico: "+ (email_login === 'worker@example.com'));
+
+
 export const MENU: IMenuItem[] = [
-  {
-    name: i18n.t('menusidebar.label.dashboard'),
-    icon: 'fas fa-tachometer-alt nav-icon',
-    path: '/'
-  },
   {
     name: i18n.t('menusidebar.label.blank'),
     icon: 'fas fa-wrench nav-icon',
     path: '/blank'
   },
   {
-    name: "hola",
-    icon: 'fas fa-wrench nav-icon',
-    path: '/hola'
-  },
-  {
-    name: i18n.t('menusidebar.label.mainMenu'),
+    name: "Funcionario",
     icon: 'far fa-caret-square-down nav-icon',
+    visible: email_login === 'worker@example.com',
     children: [
       {
-        name: i18n.t('menusidebar.label.subMenu'),
+        name: "VerStock",
         icon: 'fas fa-hammer nav-icon',
-        path: '/sub-menu-1'
+        path: '/VerStockFunc'
       },
 
       {
-        name: i18n.t('menusidebar.label.blank'),
+        name: "Ingresar Preescripciones",
         icon: 'fas fa-cogs nav-icon',
-        path: '/sub-menu-2'
+        path: '/IngresarPreescripciones'
+      },
+
+      {
+        name: "Emitir Recetas",
+        icon: 'fas fa-cogs nav-icon',
+        path: '/EmitirRecetas'
+      }
+    ]
+  },
+  {
+    name: "Médico",
+    icon: 'far fa-caret-square-down nav-icon',
+    visible: email_login ==='medic@example.com',
+    children: [
+      {
+        name: "Ver Preescripciones",
+        icon: 'fas fa-cogs nav-icon',
+        path: '/Preescripciones'
+      },
+      {
+        name: "Ver Stock",
+        icon: 'fas fa-cogs nav-icon',
+        path: '/VerStockMed'
+      },
+      {
+        name: "RegistrarEntrada",
+        icon: 'fas fa-plus nav-icon',
+        path: '/RegistrarEntrada'
+      },
+      {
+        name: "RegistrarSalida",
+        icon: 'fas fa-minus nav-icon',
+        path: '/RegistrarSalida'
+      },
+      {
+        name: "Reserva",
+        icon: 'fas fa-note-sticky nav-icon',
+        path: '/Reserva'
       }
     ]
   }
@@ -72,13 +107,13 @@ const MenuSidebar = () => {
     <aside className={`main-sidebar elevation-4 ${sidebarSkin}`}>
       <Link to="/" className="brand-link">
         <StyledBrandImage
-          src="/img/logo.png"
+          src="/img/cesfam.png"
           alt="AdminLTE Logo"
-          width={33}
+          width={70}
           height={33}
           rounded
         />
-        <span className="brand-text font-weight-light">AdminLTE 3</span>
+        <span className="brand-text font-weight-light">CESFAM</span>
       </Link>
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">

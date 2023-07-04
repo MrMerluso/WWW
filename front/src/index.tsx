@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import App from '@app/App';
 import store from '@store/store';
 
@@ -16,12 +17,19 @@ window.PF = {
   },
 };
 
+const client = new ApolloClient({
+  uri: "http://localhost:8090/graphql",
+  cache: new InMemoryCache()
+});
+
 const container: any = document.getElementById('root');
 const root = createRoot(container);
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  // <ApolloProvider client={client}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  // </ApolloProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -61,6 +61,8 @@ export const getFacebookLoginStatus = () => {
   });
 };
 
+
+
 export const authLogin = (email: string, password: string) => {
   return new Promise(async (res, rej) => {
     await sleep(500);
@@ -68,12 +70,19 @@ export const authLogin = (email: string, password: string) => {
       localStorage.setItem(
         'authentication',
         JSON.stringify({ profile: { email: 'admin@example.com' } })
-      );
+        );
+        //const authentication = JSON.parse(localStorage.getItem('authentication') || '{}');
+        //console.log(authentication.profile.email); 
+        
       return res({ profile: { email: 'admin@example.com' } });
     }
+    
     return rej({ message: 'Credentials are wrong!' });
   });
 };
+
+const authentication = JSON.parse(localStorage.getItem('authentication') || '{}');
+export const email_login = authentication?.profile?.email || '';
 
 export const getAuthStatus = () => {
   return new Promise(async (res, rej) => {

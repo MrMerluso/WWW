@@ -7,7 +7,7 @@ import { useQuery, useMutation, gql } from '@apollo/client';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-const Blank = () => {
+const Reserva = () => {
 
   // const GET_ENTRADAS = gql`query Query {
   //   getEntradas {
@@ -120,4 +120,4 @@ const Blank = () => {
   );
 };
 
-export default Blank;
+export default Reserva;

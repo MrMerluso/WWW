@@ -7,45 +7,27 @@ import { useQuery, useMutation, gql } from '@apollo/client';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-const Blank = () => {
+const VerStock = () => {
 
-  // const GET_ENTRADAS = gql`query Query {
-  //   getEntradas {
-  //     Cantidad
-  //     Medicamento {
-  //       Cantidad
-  //       Codigo
-  //       Componentes
-  //     }
-  //   }
-  // }`
-
-  // const { data, loading, error } = useQuery(GET_ENTRADAS);
-
-  // if (loading) {
-  //   console.log("a")
-  // }
-
-  // console.log(data.getEntradas.getEntradas)
-
-  const [entradas, setEntradas] = React.useState(null);
+  const [sotck, setStock] = React.useState(null);
 
   const options = {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
     },
-    // url: "http://localhost:8090/graphql",
     body: JSON.stringify({
       query: `query Query {
-        getEntradas {
+        getMedicamentos {
+          Codigo
+          Nombre
+          Descripcion
+          Fabricante
+          Tipo
+          Componentes
+          Contenido
           Cantidad
-          Medicamento {
-            Componentes
-            Cantidad
-            Codigo
-          }
-          id
+          Gramaje
         }
       }`
     })
@@ -57,7 +39,7 @@ const Blank = () => {
       .then(res => res.json())
       .then(res => {
         // console.log(res.data.getEntradas);
-        setEntradas(res.data.getEntradas);
+        setStock(res.data.getMedicamentos);
       })
 
     // axios.request(options)
@@ -69,7 +51,7 @@ const Blank = () => {
 
   // console.log("hols")
   // console.log(test);
-  console.log(entradas);
+  // console.log(stock);
 
   return (
     <div>
@@ -102,11 +84,11 @@ const Blank = () => {
             </div>
             <div className="card-body">
               <DataTable
-              value={entradas}>
-                <Column field="Cantidad" header="Cantidad"></Column>
-                <Column field="Medicamento.Cantidad" header="Medicamento.Cantidad"></Column>
-                <Column field="Medicamento.Codigo" header="Medicamento.Codigo"></Column>
-                <Column field="Medicamento.Componentes" header="Medicamento.Componentes"></Column>
+              value={sotck}>
+                <Column field="Nombre" header="Nombre Medicamento"></Column>
+                <Column field="Cantidad" header="Cantidad Disponible"></Column>
+                <Column field="Fabricante" header="Fabricante"></Column>
+                <Column field="Gramaje" header="Gramaje"></Column>
               </DataTable>
               {
                 
@@ -120,4 +102,4 @@ const Blank = () => {
   );
 };
 
-export default Blank;
+export default VerStock;

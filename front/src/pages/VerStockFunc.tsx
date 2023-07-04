@@ -7,7 +7,7 @@ import { useQuery, useMutation, gql } from '@apollo/client';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-const Blank = () => {
+const VerStockFunc = () => {
 
   // const GET_ENTRADAS = gql`query Query {
   //   getEntradas {
@@ -28,7 +28,7 @@ const Blank = () => {
 
   // console.log(data.getEntradas.getEntradas)
 
-  const [entradas, setEntradas] = React.useState(null);
+  const [sotck, setStock] = React.useState(null);
 
   const options = {
     method: 'POST',
@@ -38,14 +38,16 @@ const Blank = () => {
     // url: "http://localhost:8090/graphql",
     body: JSON.stringify({
       query: `query Query {
-        getEntradas {
+        getMedicamentos {
+          Codigo
+          Nombre
+          Descripcion
+          Fabricante
+          Tipo
+          Componentes
+          Contenido
           Cantidad
-          Medicamento {
-            Componentes
-            Cantidad
-            Codigo
-          }
-          id
+          Gramaje
         }
       }`
     })
@@ -57,7 +59,7 @@ const Blank = () => {
       .then(res => res.json())
       .then(res => {
         // console.log(res.data.getEntradas);
-        setEntradas(res.data.getEntradas);
+        setStock(res.data.getMedicamentos);
       })
 
     // axios.request(options)
@@ -69,16 +71,16 @@ const Blank = () => {
 
   // console.log("hols")
   // console.log(test);
-  console.log(entradas);
+  console.log(sotck);
 
   return (
     <div>
-      <ContentHeader title="Blank Page" />
+      <ContentHeader title="Stock" />
       <section className="content">
         <div className="container-fluid">
           <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Title</h3>
+              <h3 className="card-title">Stock</h3>
               <div className="card-tools">
                 <button
                   type="button"
@@ -102,17 +104,16 @@ const Blank = () => {
             </div>
             <div className="card-body">
               <DataTable
-              value={entradas}>
-                <Column field="Cantidad" header="Cantidad"></Column>
-                <Column field="Medicamento.Cantidad" header="Medicamento.Cantidad"></Column>
-                <Column field="Medicamento.Codigo" header="Medicamento.Codigo"></Column>
-                <Column field="Medicamento.Componentes" header="Medicamento.Componentes"></Column>
+              value={sotck}>
+                <Column field="Nombre" header="Nombre Medicamento"></Column>
+                <Column field="Cantidad" header="Cantidad Disponible"></Column>
+                <Column field="Fabricante" header="Fabricante"></Column>
+                <Column field="Gramaje" header="Gramaje"></Column>
               </DataTable>
               {
                 
               }
             </div>
-            <div className="card-footer">Footer</div>
           </div>
         </div>
       </section>
@@ -120,4 +121,4 @@ const Blank = () => {
   );
 };
 
-export default Blank;
+export default VerStockFunc;

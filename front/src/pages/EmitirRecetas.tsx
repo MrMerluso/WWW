@@ -7,7 +7,7 @@ import { useQuery, useMutation, gql } from '@apollo/client';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-const Blank = () => {
+const EmitirRecetas = () => {
 
   // const GET_ENTRADAS = gql`query Query {
   //   getEntradas {
@@ -112,7 +112,7 @@ const Blank = () => {
                 
               }
             </div>
-            <div className="card-footer">Footer</div>
+            <div className="card-footer">wena peresozo</div>
           </div>
         </div>
       </section>
@@ -120,4 +120,4 @@ const Blank = () => {
   );
 };
 
-export default Blank;
+export default EmitirRecetas;

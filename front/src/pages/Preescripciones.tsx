@@ -1,34 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import axios from 'axios';
+
 import {ContentHeader} from '@components';
 import { useQuery, useMutation, gql } from '@apollo/client';
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-const Blank = () => {
+const Preescripciones = () => {
 
-  // const GET_ENTRADAS = gql`query Query {
-  //   getEntradas {
-  //     Cantidad
-  //     Medicamento {
-  //       Cantidad
-  //       Codigo
-  //       Componentes
-  //     }
-  //   }
-  // }`
 
-  // const { data, loading, error } = useQuery(GET_ENTRADAS);
 
-  // if (loading) {
-  //   console.log("a")
-  // }
-
-  // console.log(data.getEntradas.getEntradas)
-
-  const [entradas, setEntradas] = React.useState(null);
+  const [prescripciones, setPrescripciones] = React.useState(null);
 
   const options = {
     method: 'POST',
@@ -38,14 +22,17 @@ const Blank = () => {
     // url: "http://localhost:8090/graphql",
     body: JSON.stringify({
       query: `query Query {
-        getEntradas {
-          Cantidad
+        getPrescripciones {
+          Nombre
+          Edad
+          Fecha
+          Direccion
           Medicamento {
-            Componentes
-            Cantidad
+            Nombre
             Codigo
           }
-          id
+          Cantidad
+          Detalle
         }
       }`
     })
@@ -57,7 +44,7 @@ const Blank = () => {
       .then(res => res.json())
       .then(res => {
         // console.log(res.data.getEntradas);
-        setEntradas(res.data.getEntradas);
+        setPrescripciones(res.data.getPrescripciones);
       })
 
     // axios.request(options)
@@ -69,7 +56,7 @@ const Blank = () => {
 
   // console.log("hols")
   // console.log(test);
-  console.log(entradas);
+  // console.log(entradas);
 
   return (
     <div>
@@ -102,11 +89,18 @@ const Blank = () => {
             </div>
             <div className="card-body">
               <DataTable
-              value={entradas}>
-                <Column field="Cantidad" header="Cantidad"></Column>
-                <Column field="Medicamento.Cantidad" header="Medicamento.Cantidad"></Column>
-                <Column field="Medicamento.Codigo" header="Medicamento.Codigo"></Column>
-                <Column field="Medicamento.Componentes" header="Medicamento.Componentes"></Column>
+              value={prescripciones}>
+                <Column field="Nombre" header="Nombre Paciente"></Column>
+                <Column field="Edad" header="Edad Paciente"></Column>
+                <Column field="Fecha" header="Fecha"></Column>
+                <Column field="Direccion" header="Direccion"></Column>
+
+                <Column field="Medicamento.Codigo" header="Medicamento Prescrito"></Column>
+                <Column field="Medicamento.Componentes" header="Componentes"></Column>
+
+                <Column field="Cantidad" header="Cantidad Prescrita"></Column>
+                <Column field="Detalle" header="Detalle"></Column>
+
               </DataTable>
               {
                 
@@ -120,4 +114,4 @@ const Blank = () => {
   );
 };
 
-export default Blank;
+export default Preescripciones;
